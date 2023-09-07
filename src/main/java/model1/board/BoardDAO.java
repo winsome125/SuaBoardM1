@@ -25,7 +25,11 @@ public class BoardDAO extends JDBConnect {
     	int totalCount = 0; 
 
     	//게시물 수를 얻어오기 위한 퀴리문 작성 
-        String query = "SELECT COUNT(*) FROM board";        
+        // String query = "SELECT COUNT(*) FROM board";
+    	String query = "SELECT COUNT(*) FROM "+ map.get("tname");
+    	
+    	
+    	
         /* 검색어가 있는 경우 where절을 추가하여 조건에 맞는 게시물만
         select한다. */
         if (map.get("searchWord") != null) {
@@ -239,8 +243,9 @@ public class BoardDAO extends JDBConnect {
         /* 검색조건에 일치하는 게시물을 얻어온 후 각 페이지에 출력할
         구간까지 설정한 서브 쿼리문 작성 */
         String query = " SELECT * FROM ( "
-        			+ "    SELECT Tb.*, ROWNUM rNum FROM ( "
-                    + "        SELECT * FROM board ";
+    			+ "    SELECT Tb.*, ROWNUM rNum FROM ( "
+                + "        SELECT * FROM "+ map.get("tname");
+            
         //검색어가 있는 경우에만 where절을 추가한다. 
         if (map.get("searchWord") != null) {
             query += " WHERE " + map.get("searchField")
